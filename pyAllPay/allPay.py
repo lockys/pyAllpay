@@ -1,0 +1,67 @@
+__author__ = 'Calvin.J'
+
+from pyallpay.setting import HASH_IV, HASH_KEY, AIO_SANDBOX_SERVICE_URL, AIO_SERVICE_URL, RETURN_URL, MERCHANT_ID
+import time
+import datetime
+import urllib
+import hashlib
+
+
+class AllPay():
+    is_sandbox = True
+
+    def __init__(self, payment_conf, service_method='post'):
+        self.url_dict = dict()
+        self.service_method = service_method
+        self.HASH_KEY = HASH_KEY
+        self.HASH_IV = HASH_IV
+        self.service_url = AIO_SANDBOX_SERVICE_URL if self.is_sandbox else AIO_SERVICE_URL
+
+        self.url_dict['MerchantID'] = MERCHANT_ID
+        self.url_dict['ReturnURL'] = RETURN_URL
+
+        self.url_dict['MerchantTradeNo'] = hashlib.sha224(str(datetime.datetime.now())).hexdigest().upper()
+        self.url_dict['PaymentType'] = 'aio'
+        self.url_dict['TotalAmount'] = 300 if not ('TotalAmount' in payment_conf) else payment_conf['TotalAmount']
+        self.url_dict['TradeDesc'] = 'Default Description' if not ('TradeDesc' in payment_conf) else payment_conf['TradeDesc']
+        self.url_dict['ItemName'] = 'Default Item Name' if not ('ItemName' in payment_conf) else payment_conf['ItemName']
+        self.url_dict['ChoosePayment'] = 'CVS' if not ('ChoosePayment' in payment_conf) else payment_conf['ChoosePayment']
+        self.url_dict['MerchantTradeDate'] = time.strftime('%Y/%m/%d %H:%M:%S', time.localtime(time.time()))
+        # self.url_dict['MerchantTradeDate'] = '2014/02/08 15:13:20'
+        self.url_dict['ItemURL'] = '' if not ('ItemURL' in payment_conf) else payment_conf['ItemURL']
+        self.url_dict['Remark'] = '' if not ('Remark' in payment_conf) else payment_conf['Remark']
+        self.url_dict['ChooseSubPayment'] = '' if not ('ChooseSubPayment' in payment_conf) else payment_conf['ChooseSubPayment']
+        self.url_dict['OrderResultURL'] = '' if not ('OrderResultURL' in payment_conf) else payment_conf['OrderResultURL']
+        self.url_dict['ClientBackURL'] = '' if not ('ClientBackURL' in payment_conf) else payment_conf['ClientBackURL']
+        # self.url_dict['PaymentInfoURL'] = '' if not ('PaymentInfoURL' in payment_conf) else payment_conf['PaymentInfoURL']
+
+        if self.url_dict['ChoosePayment'] == 'ATM':
+            self.url_dict['ExpireDate'] = '' if not ('ExpireDate' in payment_conf) else payment_conf['ExpireDate']
+        elif self.url_dict['ChooseSubPayment'] == 'CVS':
+            self.url_dict['Desc_1'] = '' if not ('Desc_1' in payment_conf) else payment_conf['Desc_1']
+            self.url_dict['Desc_2'] = '' if not ('Desc_2' in payment_conf) else payment_conf['Desc_2']
+            self.url_dict['Desc_3'] = '' if not ('Desc_3' in payment_conf) else payment_conf['Desc_3']
+            self.url_dict['Desc_4'] = '' if not ('Desc_4' in payment_conf) else payment_conf['Desc_4']
+
+    @classmethod
+    def do_str_replace(cls, string):
+        mapping_dict = {'-': '%2d', '_': '%5f', '.': '%2e', '!': '%21', '*': '%2a', '(': '%28', ')': '%29', '%2f': '%252f', '%3a': '%253a'}
+
+        for key, val in mapping_dict.iteritems():
+            string = string.replace(val, key)
+
+        return string
+
+    def check_out(self):
+        sorted_dict = sorted(self.url_dict.iteritems())
+
+        # insert the HashKey to the head of dictionary & HashIv to the end
+        sorted_dict.insert(0, ('HashKey', self.HASH_KEY))
+        sorted_dict.append(('HashIV', self.HASH_IV))
+
+        result_request_str = self.do_str_replace(urllib.quote(urllib.urlencode(sorted_dict), '+').lower())
+
+        # md5 encoding
+        check_mac_value = hashlib.md5(result_request_str).hexdigest().upper()
+        self.url_dict['CheckMacValue'] = check_mac_value
+        return self.url_dict
