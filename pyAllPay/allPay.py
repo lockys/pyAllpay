@@ -65,3 +65,29 @@ class AllPay():
         check_mac_value = hashlib.md5(result_request_str).hexdigest().upper()
         self.url_dict['CheckMacValue'] = check_mac_value
         return self.url_dict
+
+    @classmethod
+    def checkout_feedback(cls, post):
+        """
+        :param post: post is a dictionary which allPay server sent to us.
+        :return:
+        """
+        returns = {}
+        try:
+            payment_type_replace_map = {'_CVS': '', '_BARCODE': '', '_Alipay': '', '_Tenpay': '', '_CreditCard': ''}
+            period_tpye_replace_map = {'Y': 'Year', 'M': 'Month', 'D': 'Day'}
+            for key, val in post.iteritems():
+                print key, val
+                if key == 'CheckMacValue':
+                    returns[key.lower()] = val
+                else:
+                    if key == 'PaymentType':
+                        for origin, replacement in payment_type_replace_map.iteritems():
+                            val = val.replace(origin, replacement)
+                        returns[key.lower()] = val
+                    elif key == 'PeriodType':
+                        for origin, replacement in period_tpye_replace_map.iteritems():
+                            val = val.replace(origin, replacement)
+                        returns[key.lower()] = val
+        except:
+            pass
