@@ -48,7 +48,6 @@ class AllPay():
             self.url_dict['Desc_4'] = '' if not ('Desc_4' in payment_conf) else payment_conf['Desc_4']
             self.url_dict['PaymentInfoURL'] = PAYMENT_INFO_URL if not ('PaymentInfoURL' in payment_conf) else payment_conf['PaymentInfoURL']
 
-
     @classmethod
     def do_str_replace(cls, string):
         mapping_dict = {'-': '%2d', '_': '%5f', '.': '%2e', '!': '%21', '*': '%2a', '(': '%28', ')': '%29', '%2f': '%252f', '%3a': '%253a'}
@@ -78,11 +77,12 @@ class AllPay():
         :param post: post is a dictionary which allPay server sent to us.
         :return:
         """
+        logging.info('inside the feedback')
         returns = {}
         check_mac_value = ''
         try:
             payment_type_replace_map = {'_CVS': '', '_BARCODE': '', '_Alipay': '', '_Tenpay': '', '_CreditCard': ''}
-            period_tpye_replace_map = {'Y': 'Year', 'M': 'Month', 'D': 'Day'}
+            period_type_replace_map = {'Y': 'Year', 'M': 'Month', 'D': 'Day'}
             for key, val in post.iteritems():
 
                 print key, val
@@ -95,24 +95,29 @@ class AllPay():
                             val = val.replace(origin, replacement)
                         returns[key.lower()] = val
                     elif key == 'PeriodType':
-                        for origin, replacement in period_tpye_replace_map.iteritems():
+                        for origin, replacement in period_type_replace_map.iteritems():
                             val = val.replace(origin, replacement)
                         returns[key.lower()] = val
-
+                    else:
+                        returns[key.lower()] = val
             sorted_returns = sorted(returns.iteritems())
             sz_confirm_mac_value = "HashKey=" + HASH_KEY
 
-            for key, val in enumerate(sorted_returns):
-                sz_confirm_mac_value = "".join((sz_confirm_mac_value, "&", key, "=", val))
+            for val in sorted_returns:
+                sz_confirm_mac_value = "".join((str(sz_confirm_mac_value), "&", str(val[0]), "=", str(val[1])))
 
             sz_confirm_mac_value = "".join((sz_confirm_mac_value, "&HashIV=", HASH_IV))
-            sz_confirm_mac_value = AllPay.do_str_replace(urllib.quote(urllib.urlencode(sz_confirm_mac_value), '+').lower())
+            sz_confirm_mac_value = cls.do_str_replace(urllib.quote(sz_confirm_mac_value, '+')).lower()
             sz_confirm_mac_value = hashlib.md5(sz_confirm_mac_value).hexdigest().upper()
 
+            logging.info('sz: %s & check: %s' % (sz_confirm_mac_value, check_mac_value))
+
             if sz_confirm_mac_value != check_mac_value:
+                logging.info('False')
                 return False
             else:
-                return returns
+                logging.info(str(returns))
+            return returns
         except:
             raise NotImplementedError
 
