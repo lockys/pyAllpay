@@ -79,13 +79,16 @@ class AllPay():
         :return:
         """
         returns = {}
+        check_mac_value = ''
         try:
             payment_type_replace_map = {'_CVS': '', '_BARCODE': '', '_Alipay': '', '_Tenpay': '', '_CreditCard': ''}
             period_tpye_replace_map = {'Y': 'Year', 'M': 'Month', 'D': 'Day'}
             for key, val in post.iteritems():
+
                 print key, val
                 if key == 'CheckMacValue':
                     returns[key.lower()] = val
+                    check_mac_value = val
                 else:
                     if key == 'PaymentType':
                         for origin, replacement in payment_type_replace_map.iteritems():
@@ -95,6 +98,21 @@ class AllPay():
                         for origin, replacement in period_tpye_replace_map.iteritems():
                             val = val.replace(origin, replacement)
                         returns[key.lower()] = val
+
+            sorted_returns = sorted(returns.iteritems())
+            sz_confirm_mac_value = "HashKey=" + HASH_KEY
+
+            for key, val in enumerate(sorted_returns):
+                sz_confirm_mac_value = "".join((sz_confirm_mac_value, "&", key, "=", val))
+
+            sz_confirm_mac_value = "".join((sz_confirm_mac_value, "&HashIV=", HASH_IV))
+            sz_confirm_mac_value = AllPay.do_str_replace(urllib.quote(urllib.urlencode(sz_confirm_mac_value), '+').lower())
+            sz_confirm_mac_value = hashlib.md5(sz_confirm_mac_value).hexdigest().upper()
+
+            if sz_confirm_mac_value != check_mac_value:
+                return False
+            else:
+                return returns
         except:
             raise NotImplementedError
 
