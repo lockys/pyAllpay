@@ -1,5 +1,5 @@
 __author__ = 'Calvin.J'
-
+# -*- coding: UTF-8 -*-
 from pyallpay.setting import HASH_IV, HASH_KEY, AIO_SANDBOX_SERVICE_URL, AIO_SERVICE_URL, RETURN_URL, MERCHANT_ID, ORDER_RESULT_URL, PAYMENT_INFO_URL
 import time
 import datetime
@@ -49,9 +49,11 @@ class AllPay():
             self.url_dict['PaymentInfoURL'] = PAYMENT_INFO_URL if not ('PaymentInfoURL' in payment_conf) else payment_conf['PaymentInfoURL']
 
     @classmethod
-    def do_str_replace(cls, string):
-        mapping_dict = {'-': '%2d', '_': '%5f', '.': '%2e', '!': '%21', '*': '%2a', '(': '%28', ')': '%29', '%2f': '%252f', '%3a': '%253a'}
-
+    def do_str_replace(cls, string, type_check_out=True):
+        if type_check_out:
+            mapping_dict = {'-': '%2d', '_': '%5f', '.': '%2e', '!': '%21', '*': '%2a', '(': '%28', ')': '%29', '%2f': '%252f', '%3a': '%253a'}
+        else:
+            mapping_dict = {'-': '%2d', '_': '%5f', '.': '%2e', '!': '%21', '*': '%2a', '(': '%28', ')': '%29'}
         for key, val in mapping_dict.iteritems():
             string = string.replace(val, key)
 
@@ -79,6 +81,7 @@ class AllPay():
         """
         logging.info('inside the feedback')
         returns = {}
+        ar_parameter = {}
         check_mac_value = ''
         try:
             payment_type_replace_map = {'_CVS': '', '_BARCODE': '', '_Alipay': '', '_Tenpay': '', '_CreditCard': ''}
@@ -87,37 +90,39 @@ class AllPay():
 
                 print key, val
                 if key == 'CheckMacValue':
-                    returns[key.lower()] = val
                     check_mac_value = val
                 else:
+                    ar_parameter[key.lower()] = val
                     if key == 'PaymentType':
                         for origin, replacement in payment_type_replace_map.iteritems():
                             val = val.replace(origin, replacement)
-                        returns[key.lower()] = val
                     elif key == 'PeriodType':
                         for origin, replacement in period_type_replace_map.iteritems():
                             val = val.replace(origin, replacement)
-                        returns[key.lower()] = val
-                    else:
-                        returns[key.lower()] = val
-            sorted_returns = sorted(returns.iteritems())
+                    returns[key] = val
+
+            sorted_returns = sorted(ar_parameter.iteritems())
             sz_confirm_mac_value = "HashKey=" + HASH_KEY
 
             for val in sorted_returns:
                 sz_confirm_mac_value = "".join((str(sz_confirm_mac_value), "&", str(val[0]), "=", str(val[1])))
 
             sz_confirm_mac_value = "".join((sz_confirm_mac_value, "&HashIV=", HASH_IV))
-            sz_confirm_mac_value = cls.do_str_replace(urllib.quote(sz_confirm_mac_value, '+')).lower()
+
+            logging.info(sz_confirm_mac_value)
+
+            sz_confirm_mac_value = cls.do_str_replace((urllib.quote_plus(sz_confirm_mac_value)).lower(), False)
+
+            logging.info("".join(("==== SZ_CONFIRM_VALUE ====\n", sz_confirm_mac_value)))
+
             sz_confirm_mac_value = hashlib.md5(sz_confirm_mac_value).hexdigest().upper()
 
-            logging.info('sz: %s & check: %s' % (sz_confirm_mac_value, check_mac_value))
+            logging.info('sz-value: %s & checkvalue: %s' % (sz_confirm_mac_value, check_mac_value))
 
             if sz_confirm_mac_value != check_mac_value:
-                logging.info('False')
                 return False
             else:
-                logging.info(str(returns))
-            return returns
+                return returns
         except:
             raise NotImplementedError
 
