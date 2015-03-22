@@ -1,6 +1,7 @@
 __author__ = 'Calvin.J'
 # -*- coding: UTF-8 -*-
-from pyallpay.setting import HASH_IV, HASH_KEY, AIO_SANDBOX_SERVICE_URL, AIO_SERVICE_URL, RETURN_URL, MERCHANT_ID, ORDER_RESULT_URL, PAYMENT_INFO_URL
+from setting import HASH_IV, HASH_KEY, AIO_SANDBOX_SERVICE_URL, AIO_SERVICE_URL, RETURN_URL, MERCHANT_ID, ORDER_RESULT_URL, PAYMENT_INFO_URL, SANDBOX
+from utilities import do_str_replace
 import time
 import datetime
 import urllib
@@ -10,12 +11,12 @@ import logging
 
 class AllPay():
     # If it is in sandbox mode ?
-    is_sandbox = True
+    is_sandbox = SANDBOX
 
     def __init__(self, payment_conf, service_method='post'):
         self.url_dict = dict()
 
-        # basic config.
+        # === BASIC CONFIG FOR ALLPAY ===
         self.service_method = service_method
         self.HASH_KEY = HASH_KEY
         self.HASH_IV = HASH_IV
@@ -48,17 +49,6 @@ class AllPay():
             self.url_dict['Desc_4'] = '' if not ('Desc_4' in payment_conf) else payment_conf['Desc_4']
             self.url_dict['PaymentInfoURL'] = PAYMENT_INFO_URL if not ('PaymentInfoURL' in payment_conf) else payment_conf['PaymentInfoURL']
 
-    @classmethod
-    def do_str_replace(cls, string, type_check_out=True):
-        if type_check_out:
-            mapping_dict = {'-': '%2d', '_': '%5f', '.': '%2e', '!': '%21', '*': '%2a', '(': '%28', ')': '%29', '%2f': '%252f', '%3a': '%253a'}
-        else:
-            mapping_dict = {'-': '%2d', '_': '%5f', '.': '%2e', '!': '%21', '*': '%2a', '(': '%28', ')': '%29'}
-        for key, val in mapping_dict.iteritems():
-            string = string.replace(val, key)
-
-        return string
-
     def check_out(self):
         sorted_dict = sorted(self.url_dict.iteritems())
 
@@ -66,7 +56,7 @@ class AllPay():
         sorted_dict.insert(0, ('HashKey', self.HASH_KEY))
         sorted_dict.append(('HashIV', self.HASH_IV))
 
-        result_request_str = self.do_str_replace(urllib.quote(urllib.urlencode(sorted_dict), '+').lower())
+        result_request_str = do_str_replace(urllib.quote(urllib.urlencode(sorted_dict), '+').lower())
 
         # md5 encoding
         check_mac_value = hashlib.md5(result_request_str).hexdigest().upper()
@@ -108,23 +98,34 @@ class AllPay():
                 sz_confirm_mac_value = "".join((str(sz_confirm_mac_value), "&", str(val[0]), "=", str(val[1])))
 
             sz_confirm_mac_value = "".join((sz_confirm_mac_value, "&HashIV=", HASH_IV))
-
-            logging.info(sz_confirm_mac_value)
-
-            sz_confirm_mac_value = cls.do_str_replace((urllib.quote_plus(sz_confirm_mac_value)).lower(), False)
-
-            logging.info("".join(("==== SZ_CONFIRM_VALUE ====\n", sz_confirm_mac_value)))
-
+            sz_confirm_mac_value = do_str_replace((urllib.quote_plus(sz_confirm_mac_value)).lower(), False)
             sz_confirm_mac_value = hashlib.md5(sz_confirm_mac_value).hexdigest().upper()
 
-            logging.info('sz-value: %s & checkvalue: %s' % (sz_confirm_mac_value, check_mac_value))
+            logging.info('sz-checkMacValue: %s & checkMacValue: %s' % (sz_confirm_mac_value, check_mac_value))
 
             if sz_confirm_mac_value != check_mac_value:
                 return False
             else:
                 return returns
         except:
-            raise NotImplementedError
+            logging.info('Exception!')
+
+    def gen_check_out_form(self, dict_url):
+        """
+
+        :param dict_url:
+        :return:
+        """
+        # Generate The Form Submission
+        form_html = '<form id="allPay-Form" method="post" target="_self" action="%s" style="display: none;">' % self.service_url
+
+        for i, val in enumerate(dict_url):
+            print val, dict_url[val]
+            form_html = "".join((form_html, "<input type='hidden' name='%s' value='%s' />" % (val, dict_url[val])))
+
+        form_html = "".join((form_html, '<input type="submit" class="large" id="payment-btn" value="BUY" /></form>'))
+
+        return form_html
 
     @classmethod
     def query_payment_info(cls, merchant_trade_no):
