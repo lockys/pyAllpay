@@ -1,6 +1,9 @@
-__author__ = 'Calvin.J'
 # -*- coding: UTF-8 -*-
-from setting import HASH_IV, HASH_KEY, AIO_SANDBOX_SERVICE_URL, AIO_SERVICE_URL, RETURN_URL, MERCHANT_ID, ORDER_RESULT_URL, PAYMENT_INFO_URL, SANDBOX
+__author__ = 'Calvin.J'
+from setting import HASH_IV, HASH_KEY, MERCHANT_ID
+from setting import AIO_SANDBOX_SERVICE_URL, AIO_SERVICE_URL
+from setting import RETURN_URL, ORDER_RESULT_URL, PAYMENT_INFO_URL
+from setting import SANDBOX
 from utilities import do_str_replace
 import time
 import datetime
