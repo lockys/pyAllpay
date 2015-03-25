@@ -52,5 +52,3 @@ This final goal for this project is to implement the full functionalities of All
 This project is still a baby.
 It's built with Django 1.5 and tested to create ATM, WebATM, Barcode, CVS (convenience store) payments successfully.
 Also, Pay simulation is ok now.
-
-#### Licience:
