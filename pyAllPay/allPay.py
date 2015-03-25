@@ -1,15 +1,13 @@
-# -*- coding: UTF-8 -*-
 __author__ = 'Calvin.J'
-from setting import HASH_IV, HASH_KEY, MERCHANT_ID
-from setting import AIO_SANDBOX_SERVICE_URL, AIO_SERVICE_URL
-from setting import RETURN_URL, ORDER_RESULT_URL, PAYMENT_INFO_URL
-from setting import SANDBOX
-from utilities import do_str_replace
+# -*- coding: UTF-8 -*-
 import time
 import datetime
 import urllib
 import hashlib
 import logging
+
+from setting import HASH_IV, HASH_KEY, AIO_SANDBOX_SERVICE_URL, AIO_SERVICE_URL, RETURN_URL, MERCHANT_ID, ORDER_RESULT_URL, PAYMENT_INFO_URL, SANDBOX
+from utilities import do_str_replace
 
 
 class AllPay():
@@ -59,7 +57,9 @@ class AllPay():
         sorted_dict.insert(0, ('HashKey', self.HASH_KEY))
         sorted_dict.append(('HashIV', self.HASH_IV))
 
-        result_request_str = do_str_replace(urllib.quote(urllib.urlencode(sorted_dict), '+').lower())
+        result_request_str = do_str_replace(urllib.quote(urllib.urlencode(sorted_dict), '+%').lower())
+
+        logging.info(urllib.quote(urllib.urlencode(sorted_dict), '+').lower())
 
         # md5 encoding
         check_mac_value = hashlib.md5(result_request_str).hexdigest().upper()
@@ -70,7 +70,7 @@ class AllPay():
     def checkout_feedback(cls, post):
         """
         :param post: post is a dictionary which allPay server sent to us.
-        :return:
+        :return: a dictionary containing data the allpay server return to us.
         """
         logging.info('inside the feedback')
         returns = {}
@@ -115,11 +115,10 @@ class AllPay():
 
     def gen_check_out_form(self, dict_url):
         """
-
+        Generate The Form Submission
         :param dict_url:
-        :return:
+        :return: the html of the form
         """
-        # Generate The Form Submission
         form_html = '<form id="allPay-Form" method="post" target="_self" action="%s" style="display: none;">' % self.service_url
 
         for i, val in enumerate(dict_url):
