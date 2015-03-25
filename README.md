@@ -1,8 +1,9 @@
 ## allPay.py
 This is allPay SDK implemented in Python. not All function is implemented now.
-#### How to Use
+#### How to Use:
 clone this project and put the pyAllPay folder under your project root directory.
 First, you are required to set your own merchant ID, HashIV, HashKey in the setting.py 
+
 setting.py
 
     SANDBOX = False # False or True, The sandbox configuration depend on you.
@@ -10,7 +11,7 @@ setting.py
     HASH_KEY = 'YOUR_HASH_KEY' if not SANDBOX else '5294y06JbISpM5x9'
     HASH_IV = 'YOUR_HASH_IV' if not SANDBOX else 'v77hoKGq4kWxNNIS'
 
-##### Initialize a allPay payment.
+##### Initialize an allPay payment:
 Take Django as instance.
 In your Django view
 
