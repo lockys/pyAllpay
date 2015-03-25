@@ -42,8 +42,8 @@ For example(if you have included JQuery.):
     from pyallpay.allPay import AllPay
     returns = AllPay.checkout_feedback(request.POST) #Django for ex.
 
-**returns** will be a dict. that contain the information returned from allPay(歐付寶)  
-For example, **returns['RtnCode']** indicated the current status of a payment.  
+**returns** will be a dict. that contains the information returned from allPay(歐付寶)  
+For example, **returns['RtnCode']** indicates the current status of a payment.  
 Check out the [allPay Documentation](https://www.allpay.com.tw/Service/API_Help?Anchor=AnchorDoc) for more details.
 #### Goal:
 This final goal for this project is to implement the full functionalities of Allpay SDK in Python language.
