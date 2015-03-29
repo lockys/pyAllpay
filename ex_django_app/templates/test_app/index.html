@@ -1,0 +1,18 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>allPay</title>
+</head>
+<body class="metro">
+    <div class="margin20" style="text-align:center;" >
+	    <form id="allPay-Form" method="post" target="_self" action="{{ service_url }}">
+            {% for key, value in dict_url.items %}
+                <input type='hidden' name='{{ key }}' value='{{ value }}' />
+            {% endfor %}
+	        <input type="submit" class="large" id="payment-btn" value="BUY" />
+        </form>
+    </div>
+</body>
+</html>
