@@ -49,6 +49,10 @@ Check out the [allPay Documentation](https://www.allpay.com.tw/Service/API_Help?
 This final goal for this project is to implement the full functionalities of Allpay SDK in Python language.
 
 #### Project Current Status:
-This project is still a baby.
-It's built with Django 1.5 and tested to create ATM, WebATM, Barcode, CVS (convenience store) payments successfully.
-Also, Pay simulation is ok now.
+This project is still a baby. Therefore, the bugs may exist. :smiley:  
+I'll try hard to implement all th methods of allPay SDK.  
+#### Already tested Environment
+It's tested with Django 1.5 and python 2.7.5  
+The method of creating ATM, WebATM, Barcode, CVS (convenience store) payments successfully.  
+Also, Payment simulation is ok now.  
+You could log on the sandbox site at [here](http://vendor-stage.allpay.com.tw/)
