@@ -113,20 +113,21 @@ class AllPay():
         except:
             logging.info('Exception!')
 
-    def gen_check_out_form(self, dict_url):
+    def gen_check_out_form(self, dict_url, auto_send=True):
         """
         Generate The Form Submission
         :param dict_url:
         :return: the html of the form
         """
-        form_html = '<form id="allPay-Form" method="post" target="_self" action="%s" style="display: none;">' % self.service_url
+        form_html = '<form id="allPay-Form" name="allPayForm:" method="post" target="_self" action="%s" style="display: none;">' % self.service_url
 
         for i, val in enumerate(dict_url):
             print val, dict_url[val]
             form_html = "".join((form_html, "<input type='hidden' name='%s' value='%s' />" % (val, dict_url[val])))
 
         form_html = "".join((form_html, '<input type="submit" class="large" id="payment-btn" value="BUY" /></form>'))
-
+        if auto_send:
+            form_html = "".join((form_html, "<script>document.allPayForm.submit();</script>"))
         return form_html
 
     @classmethod
