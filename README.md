@@ -9,6 +9,8 @@ Dealing with the POST data After the a payment creates or the customer pay the p
 #### How to Use:
 Clone this project and put the pyAllPay folder under your project root directory.
 
+    git clone https://github.com/lockys/allPay.py.git
+
 First, you are required to set your own merchant ID, HashIV, HashKey provided by the 歐付寶 in the setting.py
 
 ##### - Set up the setting.py
@@ -55,4 +57,3 @@ This project is still a baby. Therefore, the bugs may exist. :smiley:
 I'll try hard to implement all th methods of allPay SDK.  
 #### Already tested Environment
 It's tested with Django 1.5 and python 2.7.5  
-
