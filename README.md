@@ -4,12 +4,11 @@ CheckOutString(), CheckOut(), CheckOutFeedback() has been implemented.
 In general, it could be used in web developed by web framework in python such as flask, Django ..etc
 #### Features:
 Checkout a payment with following method.
-===== 
- -[x] CVS
- -[x] ATM
- -[x] WebATM
- -[x] BarCode
- -[x] Credit card
+- [x] CVS
+- [x] ATM
+- [x] WebATM
+- [x] BarCode
+- [x] Credit card
 
 Dealing with the POST data After the a payment creates or the customer pay the payment.
 
