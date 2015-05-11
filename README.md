@@ -3,7 +3,12 @@ This is allPay(歐付寶) SDK implemented in Python. not All functions are imple
 CheckOutString(), CheckOut(), CheckOutFeedback() has been implemented.  
 In general, it could be used in web developed by web framework in python such as flask, Django ..etc
 #### Features:
-Checkout a CVS, ATM, WebATM, BarCode payment now  
+Checkout a payment with following method.
+-[x] CVS
+-[x] ATM
+-[x] WebATM
+-[x] BarCode
+-[x] Credit card
 Dealing with the POST data After the a payment creates or the customer pay the payment.
 
 #### How to Use:
@@ -48,8 +53,8 @@ For example(if you have included JQuery.):
 For example, **returns['RtnCode']** indicates the current status of a payment.  
 Check out the [allPay Documentation](https://www.allpay.com.tw/Service/API_Help?Anchor=AnchorDoc) for more details.
 #### Available payment.
-CVS, Barcode, ATM, WebATM  
-You could simulate to pay, but you should implement the view by your own in order to catch the feedback from allPay.
+CVS, Barcode, ATM, WebATM, Credit card    
+You could simulate to pay in the administator panel provided by allPay, but you should implement the view by your own in order to catch the feedback data from allPay.
 #### Goal:
 This final goal for this project is to implement the full functionalities of Allpay SDK in Python language.
 #### Project Current Status:
