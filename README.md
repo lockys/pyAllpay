@@ -4,6 +4,7 @@ CheckOutString(), CheckOut(), CheckOutFeedback() has been implemented.
 In general, it could be used in web developed by web framework in python such as flask, Django ..etc
 #### Features:
 Checkout a payment with following method.
+
 - [x] CVS
 - [x] ATM
 - [x] WebATM
@@ -28,9 +29,9 @@ First, you are required to set your own merchant ID, HashIV, HashKey provided by
 
 ##### - Initialize an allPay payment
 Take Django as instance.
-In your Django view
+In your Django view. (Don't forget to drop the pyAllpay folder into your root project dir, it's a module now.)
 
-    from pyallpay.allPay import AllPay
+    from pyAllpay.allPay import AllPay
 
     payment_info = {'TotalAmount': 10, 'ChoosePayment': ATM, 'MerchantTradeNo': 'xvd123test', 'ItemName': "test"}
     ap = AllPay(payment_info)
@@ -47,7 +48,7 @@ For example(if you have included JQuery.):
 
 ##### - Retrive the POST data from allPay(歐付寶)
 
-    from pyallpay.allPay import AllPay
+    from pyAllpay.allPay import AllPay
     returns = AllPay.checkout_feedback(request.POST) #Django for ex.
 
 **returns** will be a dict. that contains the information returned from allPay(歐付寶)  
