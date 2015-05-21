@@ -119,7 +119,7 @@ class AllPay():
         :param dict_url:
         :return: the html of the form
         """
-        form_html = '<form id="allPay-Form" name="allPayForm:" method="post" target="_self" action="%s" style="display: none;">' % self.service_url
+        form_html = '<form id="allPay-Form" name="allPayForm" method="post" target="_self" action="%s" style="display: none;">' % self.service_url
 
         for i, val in enumerate(dict_url):
             print val, dict_url[val]
