@@ -41,7 +41,7 @@ First, you are required to set your own merchant ID, HashIV, HashKey provided by
     HASH_IV = 'YOUR_HASH_IV' if not SANDBOX else 'v77hoKGq4kWxNNIS'
 
 ##### - Initialize an allPay payment
-Take Django as instance.
+Take Django as instance. [Check out the detailed Django App](https://github.com/lockys/allPay.py/tree/master/demo_django_app)
 In your Django view. (Don't forget to drop the pyAllpay folder into your root project dir, it's a module now.)
 
     from pyAllpay.allPay import AllPay
