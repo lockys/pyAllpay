@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 # allPay setting.
-from pyallpay.allPay import AllPay
+from pyallpay import AllPay
 
 import logging
 import json
