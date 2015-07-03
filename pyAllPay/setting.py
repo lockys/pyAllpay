@@ -1,15 +1,26 @@
-__author__ = 'Calvin'
+'''
+    You personal setting of AllPay
+'''
+try:
+    from django.conf import settings
+except:
+    settings = {}
 
-SANDBOX = True
-
+ALLPAY_SANDBOX = getattr(settings, 'ALLPAY_SANDBOX', True)
 AIO_SERVICE_URL = 'https://payment.allpay.com.tw/Cashier/AioCheckOut'
 AIO_SANDBOX_SERVICE_URL = 'http://payment-stage.allpay.com.tw/Cashier/AioCheckOut'
 
-MERCHANT_ID = 'YOUR_MERCHANT_ID' if not SANDBOX else '2000132'
-HASH_KEY = 'YOUR_HASH_KEY' if not SANDBOX else '5294y06JbISpM5x9'
-HASH_IV = 'YOUR_HASH_IV' if not SANDBOX else 'v77hoKGq4kWxNNIS'
+'''
+    Get these from AllPay management panel
+'''
+MERCHANT_ID = getattr(settings, 'MERCHANT_ID', '2000132')
+HASH_KEY = getattr(settings, 'HASH_KEY', '5294y06JbISpM5x9')
+HASH_IV = getattr(settings, 'HASH_IV', '5294y06JbISpM5x9')
 
-# URL Setting.
-RETURN_URL = 'YOUR_RETURN_URL'
-ORDER_RESULT_URL = 'YOUR_ORDER_RESULT_URL'
-PAYMENT_INFO_URL = 'YOUR_PAYMENT_INFO_URL'
+'''
+    Please specify your own URL, check out the allpay document for more details
+    https://www.allpay.com.tw/Service/API_Help?Anchor=AnchorDoc
+'''
+RETURN_URL = getattr(settings, 'RETURN_URL', '')
+ORDER_RESULT_URL = getattr(settings, 'ORDER_RESULT_URL', '')
+PAYMENT_INFO_URL = getattr(settings, 'PAYMENT_INFO_URL', '')

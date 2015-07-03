@@ -1,18 +1,22 @@
-__author__ = 'Calvin.J'
 # -*- coding: UTF-8 -*-
 import time
 import datetime
 import urllib
 import hashlib
 import logging
-
-from setting import HASH_IV, HASH_KEY, AIO_SANDBOX_SERVICE_URL, AIO_SERVICE_URL, RETURN_URL, MERCHANT_ID, ORDER_RESULT_URL, PAYMENT_INFO_URL, SANDBOX
 from utilities import do_str_replace
+'''
+    Configure your personal setting in setting.py
+'''
+from setting import HASH_IV, HASH_KEY
+from setting import AIO_SANDBOX_SERVICE_URL, AIO_SERVICE_URL, RETURN_URL, ORDER_RESULT_URL, PAYMENT_INFO_URL
+from setting import MERCHANT_ID
+from setting import ALLPAY_SANDBOX
 
 
 class AllPay():
     # If it is in sandbox mode ?
-    is_sandbox = SANDBOX
+    is_sandbox = ALLPAY_SANDBOX
 
     def __init__(self, payment_conf, service_method='post'):
         self.url_dict = dict()

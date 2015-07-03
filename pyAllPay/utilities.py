@@ -1,4 +1,6 @@
-__author__ = 'Calvin'
+'''
+    utilities method here.
+'''
 
 
 def do_str_replace(string, type_check_out=True):
