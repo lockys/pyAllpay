@@ -1,9 +1,10 @@
+# -*- coding: UTF-8 -*-
 try:
     from setuptools import setup
 except:
     from distutils.core import setup
 
-__version__ = '0.0.7-dev'
+__version__ = '0.0.8-dev'
 __author__ = 'Calvin Jeng'
 __email__ = 'lock4567@gmail.com'
 
