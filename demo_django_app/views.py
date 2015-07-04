@@ -13,7 +13,7 @@ import hashlib
 import datetime
 
 """
-
+    Example of Django view using allPay.
 """
 
 @csrf_exempt
