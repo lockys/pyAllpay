@@ -25,7 +25,7 @@ def create_payment(request):
     merchant_trade_no = merchant_trade_no[0:19]
 
     # Initialize the allPay config.
-    ap = AllPay({'TotalAmount': 300, 'ChoosePayment': 'ATM', 'MerchantTradeNo': merchant_trade_no, 'ItemName': "Default Item Name"))})
+    ap = AllPay({'TotalAmount': 300, 'ChoosePayment': 'ATM', 'MerchantTradeNo': 'merchant_trade_no', 'ItemName': "Default Item Name"})
     dict_url = ap.check_out()
     print(dict_url)
 
