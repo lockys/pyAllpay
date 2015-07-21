@@ -1,13 +1,8 @@
 ## allPay.py
 ```
-       ____  _      _      ____   ____  __ __      ____  __ __
-      /    || |    | |    |    \ /    ||  |  |    |    \|  |  |
-     |  o  || |    | |    |  o  )  o  ||  |  |    |  o  )  |  |
-     |     || |___ | |___ |   _/|     ||  ~  |    |   _/|  ~  |
-     |  _  ||     ||     ||  |  |  _  ||___, | __ |  |  |___, |
-     |  |  ||     ||     ||  |  |  |  ||     ||  ||  |  |     |
-     |__|__||_____||_____||__|  |__|__||____/ |__||__|  |____/
-
++-+-+-+-+-+-+-+-+
+|p|y|a|l|l|p|a|y|
++-+-+-+-+-+-+-+-+
 ```
 This is allPay(歐付寶) SDK implemented in Python. not All functions are implemented now.
 CheckOutString(), CheckOut(), CheckOutFeedback() has been implemented.
