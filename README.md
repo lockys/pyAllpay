@@ -95,8 +95,9 @@ This final goal for this project is to implement the full functionalities of All
 
 Project Current Status:
 ==
-This project is still a baby. Therefore, the bugs may exist. :smiley:
-I'll try hard to implement all th methods of allPay SDK.
+This project is still a baby. Therefore, the bugs may exist. :smiley:  
+I'll try hard to implement all th methods of allPay SDK.  
+** Feel free to open issues and pull request to help this project better **
 
 Already tested Environment
 ==
