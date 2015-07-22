@@ -4,7 +4,7 @@ try:
 except:
     from distutils.core import setup
 
-__version__ = '0.0.10-dev'
+__version__ = '0.0.12.dev0'
 __author__ = 'Calvin Jeng'
 __email__ = 'lock4567@gmail.com'
 
