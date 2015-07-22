@@ -1,4 +1,5 @@
-## allPay.py
+Introduction
+==
 ```
 +-+-+-+-+-+-+-+-+
 |p|y|a|l|l|p|a|y|
@@ -7,8 +8,10 @@
 This is allPay(歐付寶) SDK implemented in Python. not All functions are implemented now.
 CheckOutString(), CheckOut(), CheckOutFeedback() has been implemented.
 In general, it could be used in web developed by Django ..etc
-#### Features:
-Checkout a payment with following method.
+
+Features:
+==
+Checkout a payment in ...
 
 - [x] CVS
 - [x] ATM
@@ -16,7 +19,7 @@ Checkout a payment with following method.
 - [x] BarCode
 - [x] Credit card
 
-Dealing with the POST data After the a payment creates or the customer pay the payment.
+Dealing with the POST data returned by 歐付寶(allPay) after the a payment creates or the customer pay the payment.
 
 How to Use:
 ==
@@ -34,20 +37,21 @@ Then include pyallpay into your project if you directly cloned the source code.
 
 First, you are required to set your own merchant ID, HashIV, HashKey provided by the 歐付寶 in the setting.py
 
-##### - Set up the /your-app/settings.py in Django
+## - Set up the /your-app/settings.py in Django (Required step)
 
     ALLPAY_SANDBOX = False # False or True, The sandbox configuration depend on you.
-    MERCHANT_ID = 'YOUR_MERCHANT_ID' # default wii be '2000132'
-    HASH_KEY = 'YOUR_HASH_KEY' # Default wii be '5294y06JbISpM5x9'
-    HASH_IV = 'YOUR_HASH_IV' # Default wii be 'v77hoKGq4kWxNNIS'
+    MERCHANT_ID = 'YOUR_MERCHANT_ID' # Default is '2000132'
+    HASH_KEY = 'YOUR_HASH_KEY' # Default is '5294y06JbISpM5x9'
+    HASH_IV = 'YOUR_HASH_IV' # Default is 'v77hoKGq4kWxNNIS'
     RETURN_URL = 'YOUR_RETURN_URL'
     ORDER_RESULT_URL = 'YOUR_ORDER_RESULT_URL'
     PAYMENT_INFO_URL = 'YOUR_PAYMENT_INFO_URL'
 
-Pleae check out AllPay's documents for more details
+Pleae check out AllPay's documents for more details to know what those variable means :)
 https://www.allpay.com.tw/Service/API_Help?Anchor=AnchorDoc
 
-##### - Initialize an allPay payment
+## -Initialize an allPay payment
+
 Take Django as instance.([You can check out the detailed Django App](https://github.com/lockys/allPay.py/tree/master/demo_django_app)
 )
 In your Django view.
@@ -71,7 +75,7 @@ and you have to do submit #allPay-Form in your JavaScript.
     $('#allPay-Form').submit();
 
 
-##### - Retrive the POST data from allPay(歐付寶)
+## -Retrive the POST data from allPay(歐付寶)
 
     from pyallpay import AllPay
     returns = AllPay.checkout_feedback(request.POST) #Django for ex.
@@ -79,13 +83,26 @@ and you have to do submit #allPay-Form in your JavaScript.
 **returns** will be a dict. that contains the information returned from allPay(歐付寶)
 For example, **returns['RtnCode']** indicates the current status of a payment.
 Check out the [allPay Documentation](https://www.allpay.com.tw/Service/API_Help?Anchor=AnchorDoc) for more details.
-#### Available payment.
+
+Available payment.
+==
 CVS, Barcode, ATM, WebATM, Credit card
 You could simulate to pay in the administator panel provided by allPay, but you should implement the view by your own in order to catch the feedback data from allPay.
-#### Goal:
+
+Goal:
+==
 This final goal for this project is to implement the full functionalities of Allpay SDK in Python language.
-#### Project Current Status:
-This project is still a baby. Therefore, the bugs may exist. :smiley:
-I'll try hard to implement all th methods of allPay SDK.
-#### Already tested Environment
+
+Project Current Status:
+==
+This project is still a baby. Therefore, the bugs may exist. :smiley:  
+I'll try hard to implement all th methods of allPay SDK.  
+** Feel free to open issues and pull request to help this project better **
+
+Already tested Environment
+==
 It's tested with Django 1.5 and python 2.7.5
+
+LICENCE
+==
+MIT
