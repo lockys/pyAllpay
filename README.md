@@ -37,7 +37,7 @@ Then include pyallpay into your project if you directly cloned the source code.
 
 First, you are required to set your own merchant ID, HashIV, HashKey provided by the 歐付寶 in the setting.py
 
-## - Set up the /your-app/settings.py in Django (Required step)
+## - Set up the /your-app/settings.py in Django
 
     ALLPAY_SANDBOX = False # False or True, The sandbox configuration depend on you.
     MERCHANT_ID = 'YOUR_MERCHANT_ID' # Default is '2000132'
