@@ -9,7 +9,7 @@ from utilities import do_str_replace
     Configure your personal setting in setting.py
 '''
 from setting import HASH_IV, HASH_KEY
-from setting import AIO_SANDBOX_SERVICE_URL, AIO_SERVICE_URL, RETURN_URL, ORDER_RESULT_URL, PAYMENT_INFO_URL
+from setting import AIO_SANDBOX_SERVICE_URL, AIO_SERVICE_URL, RETURN_URL, CLIENT_BACK_URL, PAYMENT_INFO_URL
 from setting import MERCHANT_ID
 from setting import ALLPAY_SANDBOX
 
@@ -41,8 +41,8 @@ class AllPay():
         self.url_dict['ItemURL'] = '' if not ('ItemURL' in payment_conf) else payment_conf['ItemURL']
         self.url_dict['Remark'] = '' if not ('Remark' in payment_conf) else payment_conf['Remark']
         self.url_dict['ChooseSubPayment'] = '' if not ('ChooseSubPayment' in payment_conf) else payment_conf['ChooseSubPayment']
-        self.url_dict['OrderResultURL'] = ORDER_RESULT_URL if not ('OrderResultURL' in payment_conf) else payment_conf['OrderResultURL']
-        self.url_dict['ClientBackURL'] = ORDER_RESULT_URL if not ('ClientBackURL' in payment_conf) else payment_conf['ClientBackURL']
+        self.url_dict['OrderResultURL'] = CLIENT_BACK_URL if not ('ClientBackURL' in payment_conf) else payment_conf['ClientBackURL']
+        self.url_dict['ClientBackURL'] = CLIENT_BACK_URL if not ('ClientBackURL' in payment_conf) else payment_conf['ClientBackURL']
 
         if self.url_dict['ChoosePayment'] == 'ATM':
             self.url_dict['ExpireDate'] = '' if not ('ExpireDate' in payment_conf) else payment_conf['ExpireDate']

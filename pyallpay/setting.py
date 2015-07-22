@@ -22,5 +22,5 @@ HASH_IV = getattr(settings, 'HASH_IV', '5294y06JbISpM5x9')
     https://www.allpay.com.tw/Service/API_Help?Anchor=AnchorDoc
 '''
 RETURN_URL = getattr(settings, 'RETURN_URL', '')
-ORDER_RESULT_URL = getattr(settings, 'ORDER_RESULT_URL', '')
+CLIENT_BACK_URL = getattr(settings, 'CLIENT_BACK_URL', '')
 PAYMENT_INFO_URL = getattr(settings, 'PAYMENT_INFO_URL', '')
