@@ -35,8 +35,8 @@ Then include pyallpay into your project if you directly cloned the source code.
 
 First, you are required to set your own merchant ID, HashIV, HashKey provided by the 歐付寶 in the setting.py
 
-Set up the /your-app/settings.py in Django (Required step)
-==
+## - Set up the /your-app/settings.py in Django (Required step)
+
     ALLPAY_SANDBOX = False # False or True, The sandbox configuration depend on you.
     MERCHANT_ID = 'YOUR_MERCHANT_ID' # Default is '2000132'
     HASH_KEY = 'YOUR_HASH_KEY' # Default is '5294y06JbISpM5x9'
@@ -48,8 +48,8 @@ Set up the /your-app/settings.py in Django (Required step)
 Pleae check out AllPay's documents for more details to know what those variable means :)
 https://www.allpay.com.tw/Service/API_Help?Anchor=AnchorDoc
 
-Initialize an allPay payment
-==
+## -Initialize an allPay payment
+
 Take Django as instance.([You can check out the detailed Django App](https://github.com/lockys/allPay.py/tree/master/demo_django_app)
 )
 In your Django view.
@@ -73,8 +73,8 @@ and you have to do submit #allPay-Form in your JavaScript.
     $('#allPay-Form').submit();
 
 
-Retrive the POST data from allPay(歐付寶)
-==
+## -Retrive the POST data from allPay(歐付寶)
+
     from pyallpay import AllPay
     returns = AllPay.checkout_feedback(request.POST) #Django for ex.
 
