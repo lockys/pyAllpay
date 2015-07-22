@@ -44,7 +44,7 @@ First, you are required to set your own merchant ID, HashIV, HashKey provided by
     HASH_KEY = 'YOUR_HASH_KEY' # Default is '5294y06JbISpM5x9'
     HASH_IV = 'YOUR_HASH_IV' # Default is 'v77hoKGq4kWxNNIS'
     RETURN_URL = 'YOUR_RETURN_URL'
-    ORDER_RESULT_URL = 'YOUR_ORDER_RESULT_URL'
+    CLIENT_BACK_URL = 'YOUR_CLIENT_BACK_URL'
     PAYMENT_INFO_URL = 'YOUR_PAYMENT_INFO_URL'
 
 Pleae check out AllPay's documents for more details to know what those variable means :)
