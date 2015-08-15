@@ -60,7 +60,7 @@ In your Django view.
 
     payment_info = {'TotalAmount': 10, 'ChoosePayment': 'ATM', 'MerchantTradeNo': 'xvd123test', 'ItemName': "test"}
     ap = AllPay(payment_info)
-    # check out, this will return the dictionart containing checkValue...etc
+    # check out, this will return a dictionary containing checkValue...etc.
     dict_url = ap.check_out()
     # generate the submit form html
     form_html = ap.gen_check_out_form(dict_url)
