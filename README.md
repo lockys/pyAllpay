@@ -7,8 +7,8 @@ Introduction
 ```
 This is allPay(歐付寶) SDK implemented in Python. not All functions are implemented now.
 CheckOutString(), CheckOut(), CheckOutFeedback() has been implemented.
-In general, it could be used in web developed by Django ..etc
-
+In general, it could be used in web developed by Django ..etc  
+**[NOTE!] allPay may updates their SDK constantly, if `pyallpay` doesn't work. Please file a issue.**
 Features:
 ==
 Checkout a payment in ...
@@ -52,7 +52,7 @@ https://www.allpay.com.tw/Service/API_Help?Anchor=AnchorDoc
 
 ## -Initialize an allPay payment
 
-Take Django as instance.([You can check out the detailed Django App](https://github.com/lockys/allPay.py/tree/master/demo_django_app)
+Take Django as instance.([A Django example](https://github.com/lockys/allPay.py/tree/master/demo_django_app)
 )
 In your Django view.
 
@@ -97,11 +97,11 @@ Project Current Status:
 ==
 This project is still a baby. Therefore, the bugs may exist. :smiley:  
 I'll try hard to implement all th methods of allPay SDK.  
-** Feel free to open issues and pull request to help this project better **
+**Feel free to open issues and pull request to help this project better**
 
-Already tested Environment
+Environment
 ==
-It's tested with Django 1.5 and python 2.7.5
+It has been tested with Django 1.5 and python 2.7.5, and works okay for now.
 
 LICENCE
 ==
