@@ -1,7 +1,7 @@
 Introduction
 ==
 ![](https://img.shields.io/badge/pyallpay-version_0.0.12-yellow.svg) ![](https://img.shields.io/badge/python-2.7.5-green.svg) ![](https://img.shields.io/badge/django-1.5.6-blue.svg)  
-This is allPay(歐付寶) SDK implemented in Python. not All functions are implemented now.
+This is an unofficial allPay(歐付寶) SDK implemented in Python. not All functions are implemented now.
 CheckOutString(), CheckOut(), CheckOutFeedback() has been implemented.
 In general, it could be used in web developed by Django ..etc  
 **[!!NOTE!!] allPay may updates their SDK constantly, if `pyallpay` doesn't work. Please file a issue.**
