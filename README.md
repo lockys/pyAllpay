@@ -5,6 +5,9 @@ This is an unofficial allPay(歐付寶) SDK implemented in Python. not All funct
 CheckOutString(), CheckOut(), CheckOutFeedback() has been implemented.
 In general, it could be used in web developed by Django ..etc  
 **[!!NOTE!!] allPay may updates their SDK constantly, if `pyallpay` doesn't work. Please file a issue.**
+
+### For Python 3, please refer to the [py3allpay](https://github.com/m85091081/py3allpay) by @ m85091081.
+
 Features:
 ==
 Checkout a payment in ...
